@@ -1,0 +1,26 @@
+{
+  "name": "complete_backend",
+  "version": "1.0.0",
+  "description": "a backend series from hitesh chaudhary",
+  "keywords": [
+    "js",
+    "backend",
+    "fullstack",
+    "mern",
+    "development",
+    "programming",
+    "ds"
+  ],
+  "license": "ISC",
+  "author": "vijay",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2"
+  }
+}
