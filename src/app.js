@@ -26,4 +26,10 @@ app.use(express.static("public"));
 //allow us to manipulate the user cookie stored in the browser
 app.use(cookieParser());
 
+//route import
+import userRouter from './routes/userRegister.js';
+
+//route declaration
+app.use("/api/v1/users",userRouter)
+
 export{app};

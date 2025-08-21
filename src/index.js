@@ -8,14 +8,11 @@ dotenv.config({
 })
 
 const port = process.env.PORT;
+console.log(port);
+
 
 dbConnect()
-.then(
-    app.on("error", (error)=>{ 
-        console.log("Some error occured with app !! ", error);
-        throw new error 
-    }),
-    
+.then( 
     app.listen(port || 4000, ()=>{
         console.log("server is running on port ", port);
     })
