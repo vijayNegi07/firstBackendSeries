@@ -32,4 +32,14 @@ import userRouter from './routes/userRegister.js';
 //route declaration
 app.use("/api/v1/users",userRouter)
 
+app.get("/api/v1/check-cookie", (req, res) => {
+  console.log(req.cookies); // { token: "abc123" }
+  res.json({ cookies: req.cookies });
+});
+
+// app.post("/api/v1/users/login", (req, res) => {
+//   console.log(req.body);
+//   res.json(req.body);
+// });
+
 export{app};

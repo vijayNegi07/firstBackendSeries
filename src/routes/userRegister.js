@@ -1,11 +1,12 @@
 import { Router } from "express";
-import { registerUser } from "../contollers/user.contoroller.js";
+import { loginUser, logoutUser, registerUser } from "../contollers/user.contoroller.js";
 import { upload } from "../middlewares/multer.middlware.js";
+import { verifyJWT } from "../middlewares/verifyJWT.middleware.js";
 
 const router = Router();
 
 router.route("/register").post(
-    upload.fields(
+    upload.fields([
         {   name:"avatar",
             maxCount:1 
         },
@@ -13,7 +14,13 @@ router.route("/register").post(
            name:"coverImage",
             maxCount:1  
         }
-    ),
+    ]),
     registerUser);
+
+router.post("/login" ,loginUser);
+
+
+//protect routes
+router.route("/logout").post(verifyJWT ,logoutUser);
 
 export default router;

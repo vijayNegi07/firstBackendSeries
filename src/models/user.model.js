@@ -1,6 +1,6 @@
 import mongoose, {Schema, Model, model} from "mongoose";
 import bcrypt from "bcrypt";
-import {jsonwebtoken as jwt}from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const userSchema = new Schema({
     username:{
@@ -43,6 +43,9 @@ const userSchema = new Schema({
     coverImage:{
         type:String,
     },
+    refreshToken:{
+        type:String,
+    }
 },{timestamps:true});
 
 
@@ -61,12 +64,28 @@ userSchema.pre("save", async function(next){
 
 //schema.methods gives us the power to create our own method that can access the variables inside the schema
 //compares the user entered password and the encrypted one in the database
-userSchema.methods.isPassCorrect = async function(){
-    return await bcrypt.compare("passwrod", this.password);
+userSchema.methods.isPassCorrect = async function(password){
+    return await bcrypt.compare(password, this.password);
+}
+
+userSchema.methods.generateRefreshToken = function(){
+    return jwt.sign({
+        _id:this._id
+    }, 
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+        expiresIn:process.env.REFRESH_TOKEN_EXPIRY,
+    })
 }
 
 userSchema.methods.generateAccessToken = function () {
-    jwt.sign({})
+    return jwt.sign({
+        _id:this._id,
+    },
+    process.env.ACCESS_TOKEN_SECRET ,
+    {
+        expiresIn:process.env.ACCESS_TOKEN_EXPIRY,
+    })
 }
 
 
